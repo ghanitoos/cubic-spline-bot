@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from content import MENUS, START_TEXT, THEORY_TEXT, CODE_EXPLANATION, CHOOSE_MODE_TEXT, SOLVE_PROMPT_SIMPLE, SOLVE_PROMPT_PARAMETRIC, EXAMPLES_TEXT, EXAMPLES_SIMPLE, EXAMPLES_PARAMETRIC, ERROR_FILE_FORMAT, ERROR_SORTED, ERROR_MIN_POINTS
+from content import MENUS, START_TEXT, THEORY_TEXT, CODE_EXPLANATION, CHOOSE_MODE_TEXT, SOLVE_PROMPT_SIMPLE, SOLVE_PROMPT_PARAMETRIC, EXAMPLES_TEXT, EXAMPLES_SIMPLE, EXAMPLES_PARAMETRIC, ERROR_FILE_FORMAT, ERROR_SORTED, ERROR_MIN_POINTS, ABOUT_TEXT
 from spline_logic import CubicSplineSolver, ParametricSplineSolver
 import io
 
@@ -130,7 +130,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(CODE_EXPLANATION, parse_mode="HTML")
         return
     elif text == MENUS["about"]:
-        await update.message.reply_text("🤖 ربات آموزشی Cubic Spline\nطراحی شده برای درس محاسبات عددی.")
+        # Use HTML for about text to support links
+        await update.message.reply_text(ABOUT_TEXT, parse_mode="HTML", disable_web_page_preview=True)
         return
 
     # Entry points
